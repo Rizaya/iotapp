@@ -6,9 +6,9 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container">
-            <div class="row mb-2">
+            <div class="row">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard</h1>
+                    <h1 class="m-0"><?= $title; ?></h1>
                 </div>
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -18,6 +18,9 @@
     <!-- Main content -->
     <div class="content">
         <div class="container">
+            <div class="text-secondary">
+                <small><em>Update: <span class="update-time"></span></em></small>
+            </div>
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="info-box">
@@ -55,9 +58,7 @@
                         <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-biohazard"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Kondisi</span>
-                            <span class="info-box-number">
-                                Baik
-                            </span>
+                            <span class="info-box-number" id="con-value"></span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -88,10 +89,12 @@
                                 <i class="far fa-chart-bar"></i>
                                 Grafik Perubahan TDS
                             </h3>
-
+                            <div class="card-tools">
+                                <a class="btn btn-primary btn-sm" href="/tds">Detail <i class="fas fa-arrow-right"></i></a>
+                            </div>
                         </div>
                         <div class="card-body">
-                            <canvas id="TDS-chart" style="height: 300px;"></canvas>
+                            <canvas id="TDS-chart"></canvas>
                         </div>
                         <!-- /.card-body-->
                     </div>
@@ -122,86 +125,8 @@
     </div>
 </div>
 <?= $this->endSection(); ?>
-<?= $this->section('chartjs'); ?>
-<!-- ChartJS -->
-<script src="/plugins/chart.js/Chart.min.js"></script>
-<?= $this->endSection(); ?>
-<?= $this->section('ph_chart_js'); ?>
+<?= $this->section('sensor_chart_js'); ?>
 <script>
-    // var latestDataId = 0;
-    // var chartData = [];
-    // var chartLabels = [];
-    // // Function to fetch data from the server and update the chart
-    // function fetchData() {
-    //     $.ajax({
-    //         url: '<?php echo base_url('chart/fetchData'); ?>',
-    //         dataType: 'json',
-    //         data: {
-    //             latestDataId: latestDataId
-    //         },
-    //         success: function(data) {
-    //             if (data.length > 0) {
-    //                 latestDataId = data[data.length - 1].id; // Update the latest data ID
-    //                 updateChart(data);
-    //             }
-    //         }
-    //     });
-    // }
-
-    // // Function to update the chart with new data
-    // function updateChart(data) {
-
-    //     var labels = [];
-    //     var values = [];
-
-    //     for (var i = 0; i < data.length; i++) {
-    //         var label = data[i].reading_time;
-    //         if (!chartLabels.includes(label)) {
-    //             values.unshift(data[i].value1);
-    //             labels.unshift(label);
-    //             chartLabels.unshift(label);
-    //         }
-    //     }
-
-    //     // Update the chart data
-    //     chartData.unshift(...values);
-    //     if (chartData.length > 10) {
-    //         chartLabels.splice(10)
-    //         chartData.splice(10); // Keep only the latest 10 data points
-    //     }
-    //     chart.data.datasets[0].data = chartData;
-    //     chart.data.labels = chartLabels;
-    //     chart.update();
-
-    // }
-    // // Update the chart
-    // var ctx = document.getElementById('pH-chart').getContext('2d');
-    // var chart = new Chart(ctx, {
-    //     type: 'line',
-    //     data: {
-    //         labels: chartLabels,
-    //         datasets: [{
-    //             label: 'Chart Data',
-    //             data: chartData,
-    //             backgroundColor: 'rgba(75, 192, 192, 0.2)',
-    //             borderColor: 'rgba(75, 192, 192, 1)',
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
-
-    // // Fetch data initially
-    // fetchData();
-
-    // // Fetch data every 5 seconds
-    // setInterval(fetchData, 5000);
     var latestDataId = 0;
     var chartData1 = [];
     var chartData2 = [];
@@ -221,10 +146,21 @@
                     latestDataId = data[data.length - 1].id; // Update the latest data ID
                     updateCharts(data);
                 }
+
                 var lastArray = data.length - 1;
                 $('#ph-value').text(data[lastArray].value1);
                 $('#tds-value').html(data[lastArray].value2 + "<small>PPM</small>");
                 $('#temp-value').html(data[lastArray].value3 + "<small>&deg;C</small>");
+                $('.update-time').text(data[lastArray].reading_time);
+
+                if (data[lastArray].value1 >= 6.5 && data[lastArray].value1 <= 8.5 && data[lastArray].value2 <= 250) {
+                    $('#con-value').text('Baik');
+                } else if ((data[lastArray].value1 >= 6 && data[lastArray].value1 < 6.5) || (data[lastArray].value1 > 8.5 && data[lastArray].value1 <= 9) || (data[lastArray].value2 > 250 && data[lastArray].value2 < 350)) {
+                    $('#con-value').text('Kurang Baik');
+                } else {
+                    $('#con-value').text('Buruk');
+                }
+
             }
         });
     }
@@ -269,7 +205,7 @@
             data: {
                 labels: chartLabels,
                 datasets: [{
-                    label: 'Chart 1 Data',
+                    label: 'Nilai pH',
                     data: chartData1,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
@@ -290,7 +226,7 @@
             data: {
                 labels: chartLabels,
                 datasets: [{
-                    label: 'Chart 2 Data',
+                    label: 'Nilai TDS',
                     data: chartData2,
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(255, 99, 132, 1)',
@@ -311,7 +247,7 @@
             data: {
                 labels: chartLabels,
                 datasets: [{
-                    label: 'Chart 3 Data',
+                    label: 'Nilai Suhu',
                     data: chartData3,
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',

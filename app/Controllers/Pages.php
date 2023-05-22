@@ -16,12 +16,12 @@ class Pages extends BaseController
         ];
         return view('dashboard', $data);
     }
-    public function getTable()
+    public function getLog()
     {
         $dataModel = new Data_sensorModel();
         $Sensor = $dataModel->findAll();
         $data = [
-            'title' => 'Teble',
+            'title' => 'Logging | Table',
             'data' => $Sensor
         ];
 

@@ -49,10 +49,10 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url(); ?>table" class="nav-link">
+                    <a href="/logging" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
-                            Table
+                            Loging
                         </p>
                     </a>
                 </li>

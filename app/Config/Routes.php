@@ -33,10 +33,13 @@ $routes->get('/', 'Home::getIndex');
 $routes->get('home', 'Home::getIndex');
 $routes->get('contact', 'Home::getContact');
 $routes->get('dashboard', 'Pages::getIndex');
-$routes->get('table', 'Pages::getTable');
+$routes->get('logging', 'Pages::getLog');
 $routes->post('postdata', 'EndPointController::handlePostRequest');
 $routes->get('chart', 'Chart::getIndex');
 $routes->get('chart/fetchData', 'Chart::getFetchData');
+$routes->get('chart/fetchDataStat', 'Chart::getFetchDataStat');
+$routes->get('chart/data', 'Chart::getData');
+$routes->get('tds', 'Chart::getTdsChart');
 
 
 /*

@@ -41,8 +41,8 @@
                                             <td><?= $i++; ?></td>
                                             <td><?= $d['reading_time']; ?></td>
                                             <td><?= $d['value1']; ?></td>
-                                            <td><?= $d['value2']; ?></td>
-                                            <td><?= $d['value3']; ?></td>
+                                            <td><?= $d['value2']; ?> PPM</td>
+                                            <td><?= $d['value3']; ?> &deg;C</td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

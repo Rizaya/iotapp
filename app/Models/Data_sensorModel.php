@@ -15,7 +15,7 @@ class Data_sensorModel extends Model
         $builder->selectMin($value, $min_value);
         $builder->selectMax($value, $max_value);
         $builder->selectAvg($value, $avg_value);
-        $query = $builder->get();
+        $query = $builder->orderBy('id', 'DESC')->get();
 
         return $query->getRow();
     }
