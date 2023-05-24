@@ -16,12 +16,26 @@ class Chart extends BaseController
         return view('chart');
     }
 
+    public function getPhChart()
+    {
+        $data = [
+            'title' => 'Grafik Perubahan pH'
+        ];
+        return view('phChart', $data);
+    }
     public function getTdsChart()
     {
         $data = [
             'title' => 'Grafik Perubahan TDS'
         ];
         return view('tdsChart', $data);
+    }
+    public function getTempChart()
+    {
+        $data = [
+            'title' => 'Grafik Perubahan Suhu'
+        ];
+        return view('tempChart', $data);
     }
 
     public function getFetchData()
@@ -46,7 +60,7 @@ class Chart extends BaseController
 
     public function getData()
     {
-        $data = $this->dataModel->findAll();
+        $data = $this->dataModel->orderBy('id', 'DESC')->findAll();
 
         return $this->response->setJSON($data);
     }

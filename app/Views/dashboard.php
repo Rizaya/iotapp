@@ -73,6 +73,9 @@
                                 <i class="far fa-chart-bar"></i>
                                 Grafik Perubahan pH
                             </h3>
+                            <div class="card-tools">
+                                <a class="btn btn-primary btn-sm" href="/ph">Detail <i class="fas fa-arrow-right"></i></a>
+                            </div>
                         </div>
                         <div class="card-body">
                             <canvas id="pH-chart"></canvas>
@@ -110,6 +113,9 @@
                                 <i class="far fa-chart-bar"></i>
                                 Grafik Perubahan Suhu
                             </h3>
+                            <div class="card-tools">
+                                <a class="btn btn-primary btn-sm" href="/suhu">Detail <i class="fas fa-arrow-right"></i></a>
+                            </div>
                         </div>
                         <div class="card-body">
                             <canvas id="temp-chart"></canvas>
@@ -149,8 +155,8 @@
 
                 var lastArray = data.length - 1;
                 $('#ph-value').text(data[lastArray].value1);
-                $('#tds-value').html(data[lastArray].value2 + "<small>PPM</small>");
-                $('#temp-value').html(data[lastArray].value3 + "<small>&deg;C</small>");
+                $('#tds-value').html(data[lastArray].value2 + " " + "<small>PPM</small>");
+                $('#temp-value').html(data[lastArray].value3 + " " + "<small>&deg;C</small>");
                 $('.update-time').text(data[lastArray].reading_time);
 
                 if (data[lastArray].value1 >= 6.5 && data[lastArray].value1 <= 8.5 && data[lastArray].value2 <= 250) {
@@ -249,8 +255,8 @@
                 datasets: [{
                     label: 'Nilai Suhu',
                     data: chartData3,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(255, 193, 7, 0.2)',
+                    borderColor: 'rgba(255, 193, 7, 1)',
                     borderWidth: 1
                 }]
             },

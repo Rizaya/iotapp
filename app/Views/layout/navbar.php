@@ -16,13 +16,13 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url(); ?>" class="nav-link">Home</a>
+                    <a href="/" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url(); ?>contact" class="nav-link">Contact</a>
+                    <a href="/contact" class="nav-link">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url(); ?>Auth" class="btn btn-secondary text-light">Login</a>
+                    <a href="/Auth" class="btn btn-secondary text-light">Login</a>
                 </li>
             </ul>
         </div>

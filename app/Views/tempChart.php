@@ -25,7 +25,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="far fa-chart-bar"></i>
-                                Grafik Perubahan TDS
+                                Grafik Perubahan Suhu
                             </h3>
                         </div>
                         <div class="card-body">
@@ -56,9 +56,9 @@
                         <!-- /.info-box-content -->
                     </div>
                     <div class="info-box">
-                        <span class="info-box-icon bg-warning elevation-1"><a href="#"><i class="fas fa-thermometer-half"></i></a></span>
+                        <span class="info-box-icon bg-danger elevation-1"><a href="/tds">TDS</a></span>
                         <div class="info-box-content">
-                            <span class="info-box-number" id="temp-value"></span>
+                            <span class="info-box-number" id="tds-value"></span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -78,7 +78,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Waktu</th>
-                                <th>Nilai TDS</th>
+                                <th>Nilai Suhu</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,7 +87,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Waktu</th>
-                                <th>Nilai TDS</th>
+                                <th>Nilai Suhu</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -122,7 +122,7 @@
 
                 var lastArray = data.length - 1;
                 $('#ph-value').text(data[lastArray].value1);
-                $('#temp-value').html(data[lastArray].value3 + "<small>&deg;C</small>");
+                $('#tds-value').html(data[lastArray].value2 + " " + "<small>PPM</small>");
                 $('.update-time').text(data[lastArray].reading_time);
             }
         });
@@ -137,7 +137,7 @@
         for (var i = 0; i < data.length; i++) {
             var label = data[i].reading_time;
             if (!chartLabels.includes(label)) {
-                values.unshift(data[i].value2);
+                values.unshift(data[i].value3);
                 labels.unshift(label);
                 chartLabels.unshift(label);
             }
@@ -159,9 +159,9 @@
         var sum = arrnum.reduce((a, b) => a + b, 0);
         var avg = sum / chartData.length;
 
-        $('.min').text(min + " " + "PPM");
-        $('.max').text(max + " " + "PPM");
-        $('.avg').text(avg.toFixed(2) + " " + "PPM");
+        $('.min').html(min + " " + "<small>&deg;C</small>");
+        $('.max').html(max + " " + "<small>&deg;C</small>");
+        $('.avg').html(avg.toFixed(2) + " " + "<small>&deg;C</small>");
     }
     // Update the chart
     var ctx = document.getElementById('tds-chart').getContext('2d');
@@ -170,10 +170,10 @@
         data: {
             labels: chartLabels,
             datasets: [{
-                label: 'Kadar TDS',
+                label: 'Suhu',
                 data: chartData,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 193, 7, 0.2)',
+                borderColor: 'rgba(255, 193, 7, 1)',
                 borderWidth: 1
             }]
         },
@@ -203,7 +203,7 @@
                     var row = [
                         index + 1,
                         item.reading_time,
-                        item.value2
+                        item.value3
                     ]
                     $('#dataTable').DataTable().row.add(row).draw();
                 });

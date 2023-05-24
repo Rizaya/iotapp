@@ -29,19 +29,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="/charts/chartjs.html" class="nav-link">
+                            <a href="/tds" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>TDS Chart</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/charts/flot.html" class="nav-link">
+                            <a href="/ph" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>pH Chart</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../charts/inline.html" class="nav-link">
+                            <a href="/suhu" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Suhu Chart</p>
                             </a>
@@ -52,7 +52,7 @@
                     <a href="/logging" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
-                            Loging
+                            Logging
                         </p>
                     </a>
                 </li>

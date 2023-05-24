@@ -40,6 +40,8 @@ $routes->get('chart/fetchData', 'Chart::getFetchData');
 $routes->get('chart/fetchDataStat', 'Chart::getFetchDataStat');
 $routes->get('chart/data', 'Chart::getData');
 $routes->get('tds', 'Chart::getTdsChart');
+$routes->get('ph', 'Chart::getPhChart');
+$routes->get('suhu', 'Chart::getTempChart');
 
 
 /*

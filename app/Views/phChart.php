@@ -25,7 +25,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="far fa-chart-bar"></i>
-                                Grafik Perubahan TDS
+                                Grafik Perubahan pH
                             </h3>
                         </div>
                         <div class="card-body">
@@ -49,9 +49,9 @@
                         </div>
                     </div>
                     <div class="info-box">
-                        <span class="info-box-icon bg-info elevation-1"><a href="/ph">pH</a></span>
+                        <span class="info-box-icon bg-danger elevation-1"><a href="/tds">TDS</a></span>
                         <div class="info-box-content">
-                            <span class="info-box-number" id="ph-value"></span>
+                            <span class="info-box-number" id="tds-value"></span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -69,7 +69,7 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Data pembacaan</h3>
+                    <h3 class="card-title">Data Logging</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -78,7 +78,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Waktu</th>
-                                <th>Nilai TDS</th>
+                                <th>Nilai pH</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,7 +87,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Waktu</th>
-                                <th>Nilai TDS</th>
+                                <th>Nilai pH</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -121,8 +121,8 @@
                 }
 
                 var lastArray = data.length - 1;
-                $('#ph-value').text(data[lastArray].value1);
-                $('#temp-value').html(data[lastArray].value3 + "<small>&deg;C</small>");
+                $('#tds-value').html(data[lastArray].value2 + " " + "<small>PPM</small>");
+                $('#temp-value').html(data[lastArray].value3 + " " + "<small>&deg;C</small>");
                 $('.update-time').text(data[lastArray].reading_time);
             }
         });
@@ -137,7 +137,7 @@
         for (var i = 0; i < data.length; i++) {
             var label = data[i].reading_time;
             if (!chartLabels.includes(label)) {
-                values.unshift(data[i].value2);
+                values.unshift(data[i].value1);
                 labels.unshift(label);
                 chartLabels.unshift(label);
             }
@@ -159,9 +159,9 @@
         var sum = arrnum.reduce((a, b) => a + b, 0);
         var avg = sum / chartData.length;
 
-        $('.min').text(min + " " + "PPM");
-        $('.max').text(max + " " + "PPM");
-        $('.avg').text(avg.toFixed(2) + " " + "PPM");
+        $('.min').text(min);
+        $('.max').text(max);
+        $('.avg').text(avg.toFixed(2));
     }
     // Update the chart
     var ctx = document.getElementById('tds-chart').getContext('2d');
@@ -170,10 +170,10 @@
         data: {
             labels: chartLabels,
             datasets: [{
-                label: 'Kadar TDS',
+                label: 'Kadar pH',
                 data: chartData,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
             }]
         },
@@ -203,7 +203,7 @@
                     var row = [
                         index + 1,
                         item.reading_time,
-                        item.value2
+                        item.value1
                     ]
                     $('#dataTable').DataTable().row.add(row).draw();
                 });
